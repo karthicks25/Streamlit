@@ -1,0 +1,4 @@
+import streamlit
+import transformers
+install the dependencies
+tensorflow , pytorch
