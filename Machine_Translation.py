@@ -1,18 +1,15 @@
 import streamlit as st
 from transformers import MarianMTModel, MarianTokenizer
 
-
 def get_model(source_lang, target_lang):
 
   model_map = {
-      ("en", "fr"): ("Helsinki-NLP/opus-mt-en-fr", MarianTokenizer),
-      ("en", "ta"): ("Helsinki-NLP/opus-mt-en-ta", MarianTokenizer),  # Check availability
-      ("en", "hi"): ("Helsinki-NLP/opus-mt-en-hi", MarianTokenizer),  # Check availability
-      ("en", "de"): ("Helsinki-NLP/opus-mt-en-de", MarianTokenizer),
-      ("fr", "en"): ("Helsinki-NLP/opus-mt-fr-en", MarianTokenizer),
-      ("ta", "en"): ("Helsinki-NLP/opus-mt-ta-en", MarianTokenizer),  # Check availability
-      ("hi", "en"): ("Helsinki-NLP/opus-mt-hi-en", MarianTokenizer),  # Check availability
-      ("de", "en"): ("Helsinki-NLP/opus-mt-de-en", MarianTokenizer),
+      ("English", "French"): ("Helsinki-NLP/opus-mt-en-fr", MarianTokenizer),
+      ("English", "German"): ("Helsinki-NLP/opus-mt-en-de", MarianTokenizer),
+      ("French", "English"): ("Helsinki-NLP/opus-mt-fr-en", MarianTokenizer),
+      ("German","English"): ("Helsinki-NLP/opus-mt-de-en", MarianTokenizer),
+      ("German","French"): ("Helsinki-NLP/opus-mt-de-fr", MarianTokenizer),
+      ("French","German"): ("Helsinki-NLP/opus-mt-fr-de", MarianTokenizer)
   }
 
   if (source_lang, target_lang) in model_map:
@@ -32,11 +29,10 @@ def translate(text, source_lang, target_lang):
   translation = tokenizer.decode(translated[0], skip_special_tokens=True)
   return translation
 
-
 def main():
   st.title("Multilingual Translator")
 
-  supported_languages = ["en", "fr", "ta", "hi", "de"]
+  supported_languages = ["English", "French", "German"]
     
   # Add dropdowns to select source and target languages
   source_lang = st.selectbox("Source Language", supported_languages)
